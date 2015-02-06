@@ -1,3 +1,3 @@
 __author__ = 'Dani'
 
-import application.services.event_service
+from application.services.event_service import EventService

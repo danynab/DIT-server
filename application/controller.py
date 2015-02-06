@@ -2,7 +2,7 @@ __author__ = 'Dani Meana'
 
 import flask
 from application import app
-from application.services import event_service
+from application.services import EventService
 from application.model import Event
 import datetime
 
@@ -49,9 +49,11 @@ hello_message = "<h1>WELCOME TO DIT-server</h1>" \
                 "<li>/events/<i>&lt;event_id&gt;</i></li>" \
                 "<li>/categories</li>"
 
+
 @app.route("/createTables")
 def create():
     from application import db
+
     db.drop_all()
     db.create_all()
     user_id = "103788299879342667199"
@@ -65,8 +67,9 @@ def create():
     lng = -5.851503
     address = "Calle Valdes Salas, 7, 33007 Oviedo, Asturias"
     event = Event(title, description, image, address, datetime.datetime.now(), lat, lng, user_id, category_id)
-    event_service.save_event(event)
+    EventService.save_event(event)
     return "<h1> Tablas creadas</h1>"
+
 
 @app.route("/", methods=["GET"])
 def hello():
@@ -80,8 +83,9 @@ def find_near_events():
     radius = _get_request_arg('radius', None)
     limit = _get_request_arg('lng', None)
     page = _get_request_arg('lng', None)
-    events_array = event_service.find_near_events(lat, lng, radius, limit, page)
+    events_array = EventService.find_near_events(lat, lng, radius, limit, page)
     return _response(events_array)
+
 
 @app.route("/categories/<int:category_id>/events", methods=["GET"])
 def find_near_events_by_category(category_id):
