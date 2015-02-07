@@ -50,6 +50,24 @@ Crear el entorno virtual:
 virtualenv venv
 ```
 
+Activamos el entorno virtual:
+
+```bash
+. venv/bin/activate
+```
+
+Instalar las dependencias:
+
+```bash
+pip3 install -r dependencies
+```
+
+Desactivamos el entorno virtual:
+
+```bash
+deactivate
+```
+
 ## Ejecución
 
 A continuación se detallan los pasos a seguir para ejecutar el servidor web.
@@ -62,7 +80,7 @@ Activamos el entorno virtual:
 
 Ejecutar el servidor:
 ```bash
-python run.py
+python3 run.py
 ```
 
 La activación del entorno virtual será necesaria cada vez que se quiera ejecutar el servidor. Para desactivar el entorno virtual puede utilizarse el comando:
