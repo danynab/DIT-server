@@ -14,6 +14,10 @@ class EventService:
         return Event.query.all()
 
     @staticmethod
+    def get(event_id):
+        return Event.query.get(event_id)
+
+    @staticmethod
     def save_event(event):
         db.session.add(event)
         db.session.commit()

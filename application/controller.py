@@ -111,12 +111,17 @@ def find_near_events():
 
 @app.route("/categories/<int:category_id>/events", methods=["GET"])
 def find_near_events_by_category(category_id):
-    return _response(events)
+    lat = _get_request_arg('lat', None)
+    lng = _get_request_arg('lng', None)
+    radius = _get_request_arg('radius', None)
+    limit = _get_request_arg('lng', None)
+    page = _get_request_arg('lng', None)
+    return _collection_to_json(EventService.find_near_events(lat, lng, radius, limit, page))
 
 
 @app.route("/events/<int:event_id>")
 def find_event(event_id):
-    return _response(event1)
+    return _element_to_json(EventService.get(event_id))
 
 
 @app.route("/categories")
