@@ -44,6 +44,12 @@ git clone https://github.com/danynab/DIT-server.git
 cd DIT-server
 ```
 
+Crear el entorno virtual:
+
+```bash
+virtualenv venv
+```
+
 Activamos el entorno virtual:
 
 ```bash
