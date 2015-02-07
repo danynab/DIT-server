@@ -4,7 +4,7 @@ import flask
 from application import app
 from application.services import EventService
 from application.model import Event
-import datetime
+import datetime, time
 
 
 event1 = {
@@ -13,12 +13,14 @@ event1 = {
     "title": "Don't eat alone in Computer Engineering's School",
     "description": "Hi! I am going to eat in EII and I do not want eat alone. "
                    "I am a amused person and I want eat with a person who likes talking about technology.",
-    "categoryId": 2,
-    "image": "http://156.35.95.69:8888/img/default-header.jpg",
-    "date": "2015-02-15 13:30:00",
+    "categoryId": 1,
+    "image": "http://156.35.95.67/dit/static/img/default-header.jpg",
+    "time": time.mktime(datetime.datetime.now().timetuple()) * 1000,
     "lat": 43.355034,
     "lng": -5.851503,
-    "address": "Calle Valdes Salas, 7, 33007 Oviedo, Asturias"}
+    "address": "Calle Valdes Salas, 7, 33007 Oviedo, Asturias",
+    "placeId": None
+}
 
 event2 = {
     "id": 2,
@@ -26,12 +28,13 @@ event2 = {
     "title": "Have a drink and speach about Barsa vs Madrid",
     "description": "Howdy guys, We want people to talk about the next match between Barsa and Madrid. "
                    "Do you want to join us?",
-    "categoryId": 1,
-    "image": "http://156.35.95.69:8888/img/default-header.jpg",
-    "date": "2015-02-20 18:30:00",
+    "categoryId": 2,
+    "image": "http://156.35.95.67/dit/static/img/default-header.jpg",
+    "time": time.mktime(datetime.datetime.now().timetuple()) * 1000,
     "lat": 43.36333,
     "lng": -5.845133,
-    "address": "Calle Jovellanos, 4 33003 Oviedo, Asturias, Espana"
+    "address": "Calle Jovellanos, 4 33003 Oviedo, Asturias, Espana",
+    "placeId": None
 }
 
 events = [event1, event2]
@@ -69,24 +72,25 @@ categories = [
     }
 ]
 
+
 @app.route("/createTables")
 def create():
     from application import db
 
     db.drop_all()
     db.create_all()
-    user_id = "103788299879342667199"
-    title = "Don't eat alone in Computer Engineering's School"
-    description = "Hi! I am going to eat in EII and I do not want eat alone. " \
-                  "I am a amused person and I want eat with a person who likes talking about technology."
-    category_id = 2
-    image = "http://156.35.95.69:8888/img/default-header.jpg"
-    date = "2015-02-15 13:30:00"
-    lat = 43.355034
-    lng = -5.851503
-    address = "Calle Valdes Salas, 7, 33007 Oviedo, Asturias"
-    event = Event(title, description, image, address, datetime.datetime.now(), lat, lng, user_id, category_id)
-    EventService.save_event(event)
+    event1_obj = Event.from_dict(event1)
+    event2_obj = Event.from_dict(event2)
+    event3_obj = Event.from_dict(event1)
+    event4_obj = Event.from_dict(event2)
+    event5_obj = Event.from_dict(event1)
+    event6_obj = Event.from_dict(event2)
+    EventService.save_event(event1_obj)
+    EventService.save_event(event2_obj)
+    EventService.save_event(event3_obj)
+    EventService.save_event(event4_obj)
+    EventService.save_event(event5_obj)
+    EventService.save_event(event6_obj)
     return "<h1> Tablas creadas</h1>"
 
 
@@ -102,8 +106,7 @@ def find_near_events():
     radius = _get_request_arg('radius', None)
     limit = _get_request_arg('lng', None)
     page = _get_request_arg('lng', None)
-    events_array = EventService.find_near_events(lat, lng, radius, limit, page)
-    return _response(events_array)
+    return _collection_to_json(EventService.find_near_events(lat, lng, radius, limit, page))
 
 
 @app.route("/categories/<int:category_id>/events", methods=["GET"])
@@ -123,6 +126,14 @@ def find_categories():
 
 def _get_request_arg(arg, default_value):
     return flask.request.args.get(arg, default_value)
+
+
+def _collection_to_json(collection):
+    return _response([e.to_dict() for e in collection])
+
+
+def _element_to_json(element):
+    return _response(element.to_dict())
 
 
 def _response(data):
