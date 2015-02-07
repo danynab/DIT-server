@@ -36,19 +36,38 @@ event2 = {
 
 events = [event1, event2]
 
-category1 = {"id": 1, "name": "Hangouts"}
-
-category2 = {"id": 2, "name": "Eating"}
-
-categories = [category1, category2]
-
-hello_message = "<h1>WELCOME TO DIT-server</h1>" \
-                "<h3>Methods:</h3>" \
-                "<ul><li>/events</li>" \
-                "<li>/categories/<i>&lt;category_id&gt;</i>/events</li>" \
-                "<li>/events/<i>&lt;event_id&gt;</i></li>" \
-                "<li>/categories</li>"
-
+categories = [
+    {
+        "id": 1,
+        "name": "Eating",
+        "color": "#e91e64"
+    },
+    {
+        "id": 2,
+        "name": "Hangouts",
+        "color": "#2196f3"
+    },
+    {
+        "id": 2,
+        "name": "Leisure",
+        "color": "#ff5722"
+    },
+    {
+        "id": 2,
+        "name": "Personal care",
+        "color": "#4caf50"
+    },
+    {
+        "id": 2,
+        "name": "Religion",
+        "color": "#673ab7"
+    },
+    {
+        "id": 2,
+        "name": "Shopping",
+        "color": "#ffeb3b"
+    }
+]
 
 @app.route("/createTables")
 def create():
@@ -73,7 +92,7 @@ def create():
 
 @app.route("/", methods=["GET"])
 def hello():
-    return hello_message
+    return flask.redirect("https://github.com/danynab/DIT-server")
 
 
 @app.route("/events", methods=["GET"])
