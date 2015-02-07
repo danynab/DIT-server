@@ -50,6 +50,10 @@ Crear el entorno virtual:
 virtualenv venv
 ```
 
+## Ejecución
+
+A continuación se detallan los pasos a seguir para ejecutar el servidor web.
+
 Activamos el entorno virtual:
 
 ```bash
