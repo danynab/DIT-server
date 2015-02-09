@@ -2,7 +2,7 @@ __author__ = 'Dani Meana'
 
 import flask
 from application import app
-from application.services import EventService
+from application.services import EventService, CategoryService
 from application.model import Event
 import datetime, time
 
@@ -38,40 +38,6 @@ event2 = {
 }
 
 events = [event1, event2]
-
-categories = [
-    {
-        "id": 1,
-        "name": "Eating",
-        "color": "#e91e64"
-    },
-    {
-        "id": 2,
-        "name": "Hangouts",
-        "color": "#2196f3"
-    },
-    {
-        "id": 2,
-        "name": "Leisure",
-        "color": "#ff5722"
-    },
-    {
-        "id": 2,
-        "name": "Personal care",
-        "color": "#4caf50"
-    },
-    {
-        "id": 2,
-        "name": "Religion",
-        "color": "#673ab7"
-    },
-    {
-        "id": 2,
-        "name": "Shopping",
-        "color": "#ffeb3b"
-    }
-]
-
 
 @app.route("/createTables")
 def create():
@@ -126,7 +92,7 @@ def find_event(event_id):
 
 @app.route("/categories")
 def find_categories():
-    return _response(categories)
+    return _collection_to_json(CategoryService.get_all())
 
 
 def _get_request_arg(arg, default_value):
