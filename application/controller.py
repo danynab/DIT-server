@@ -37,12 +37,9 @@ event2 = {
     "placeId": None
 }
 
-events = [event1, event2]
-
 @app.route("/createTables")
 def create():
     from application import db
-
     db.drop_all()
     db.create_all()
     event1_obj = Event.from_dict(event1)
@@ -70,9 +67,16 @@ def find_near_events():
     lat = _get_request_arg('lat', None)
     lng = _get_request_arg('lng', None)
     radius = _get_request_arg('radius', None)
-    limit = _get_request_arg('lng', None)
-    page = _get_request_arg('lng', None)
-    return _collection_to_json(EventService.find_near_events(lat, lng, radius, limit, page))
+    from_id = _get_request_arg('fromId', None)
+    elements = _get_request_arg('elements', None)
+    return _collection_to_json(EventService.find_near_events(lat, lng, radius, from_id, elements))
+
+
+@app.route("/users/<string:user_id>/events", methods=["GET"])
+def find_events_by_user(user_id):
+    from_id = _get_request_arg('fromId', None)
+    elements = _get_request_arg('elements', None)
+    return _collection_to_json(EventService.find_events_by_user_id(user_id, from_id, elements))
 
 
 @app.route("/categories/<int:category_id>/events", methods=["GET"])
@@ -80,9 +84,10 @@ def find_near_events_by_category(category_id):
     lat = _get_request_arg('lat', None)
     lng = _get_request_arg('lng', None)
     radius = _get_request_arg('radius', None)
-    limit = _get_request_arg('lng', None)
-    page = _get_request_arg('lng', None)
-    return _collection_to_json(EventService.find_near_events(lat, lng, radius, limit, page))
+    from_id = _get_request_arg('fromId', None)
+    elements = _get_request_arg('elements', None)
+    return _collection_to_json(
+        EventService.find_near_events_by_category_id(category_id, lat, lng, radius, from_id, elements))
 
 
 @app.route("/events/<int:event_id>")

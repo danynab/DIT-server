@@ -12,7 +12,7 @@ class Event(db.Model):
     time = db.Column(db.BigInteger)
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
-    user_id = db.Column(db.Integer)
+    user_id = db.Column(db.String)
     category_id = db.Column(db.Integer)
     place_id = db.Column(db.Integer)
 
