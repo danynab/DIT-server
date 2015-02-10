@@ -13,38 +13,19 @@ class EventService:
 
     @staticmethod
     def find_near_events_by_category_id(category_id, lat, lng, radius, from_id, elements):
-        events = Event.query
-        if category_id is not None:
-            events = events.filter(Event.category_id == category_id)
-
-        if from_id is not None:
-            event = Event.query.get(from_id)
-            if event is not None:
-                events_temp = events.order_by(desc(Event.time)).filter(Event.time >= event.time)
-                row = 0
-                for event_temp in events_temp:
-                    row += 1
-                    if event_temp.id == event.id:
-                        break
-            else:
-                return []
-        else:
-            row = 0
+        events = Event.query if category_id is None else Event.query.filter(Event.category_id == category_id)
         events = events.order_by(desc(Event.time))
-
-        def is_closed(event_lat, event_lng):
-            if lat is None or lng is None or radius is None:
-                return True
-            else:
-                return haversine((float(lat), float(lng)), (float(event_lat), float(event_lng))) <= float(radius)
-
-        events = [event for event in events[int(row):int(row) + int(elements)] if is_closed(event.lat, event.lng)]
-        return events
+        position = _get_row(events, from_id)
+        if position is None:
+            return []
+        events = [event for event in events if _are_points_closed(event.lat, event.lng, lat, lng, radius)]
+        return _partition_events(events, position, elements)
 
     @staticmethod
     def find_events_by_user_id(user_id, from_id, elements):
-        events = Event.query.filter(Event.user_id == user_id)
-        return EventService._partition_events(events, from_id, elements)
+        events = Event.query.filter(Event.user_id == user_id).order_by(desc(Event.time))
+        position = _get_row(events, from_id)
+        return _partition_events(events, position, elements) if position is not None else []
 
     @staticmethod
     def get(event_id):
@@ -55,21 +36,27 @@ class EventService:
         db.session.add(event)
         db.session.commit()
 
-    @staticmethod
-    def _partition_events(events, from_id, elements):
 
-        if from_id is not None:
-            event = Event.query.get(from_id)
-            if event is not None:
-                events_temp = events.order_by(desc(Event.time)).filter(Event.time >= event.time)
-                row = 0
-                for event_temp in events_temp:
-                    row += 1
-                    if event_temp.id == event.id:
-                        break
-            else:
-                return []
-        else:
-            row = 0
-        events = events.order_by(desc(Event.time)).offset(row).limit(elements)
-        return events
+def _get_row(events, event_id):
+    if event_id is None:
+        return 0
+    event = Event.query.get(event_id)
+    if event is not None:
+        events_temp = events.filter(Event.time >= event.time)
+        row = 0
+        for event_temp in events_temp:
+            row += 1
+            if event_temp.id == event.id:
+                return row
+    return None
+
+
+def _partition_events(events, position, elements):
+    return events if elements is None else [event for event in events[int(position):(int(position) + int(elements))]]
+
+
+def _are_points_closed(lat1, lng1, lat2, lng2, radius):
+    if lat1 is None or lng1 is None or lat2 is None or lng2 is None or radius is None:
+        return True
+    else:
+        return haversine((float(lat1), float(lng1)), (float(lat2), float(lng2))) <= float(radius)
