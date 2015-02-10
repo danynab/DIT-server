@@ -15,18 +15,12 @@ class EventService:
         events = Event.query
         if category_id is not None:
             events = events.filter(Event.category_id == category_id)
-        if from_id is not None:
-            events = events.filter(Event.id < from_id)
-        events = events.order_by(desc(Event.id)).limit(elements)
-        return events
+        return EventService._partition_events(events, from_id, elements)
 
     @staticmethod
     def find_events_by_user_id(user_id, from_id, elements):
         events = Event.query.filter(Event.user_id == user_id)
-        if from_id is not None:
-            events = events.filter(Event.id < from_id)
-        events = events.order_by(desc(Event.id)).limit(elements)
-        return events
+        return EventService._partition_events(events, from_id, elements)
 
     @staticmethod
     def get(event_id):
@@ -36,3 +30,21 @@ class EventService:
     def save_event(event):
         db.session.add(event)
         db.session.commit()
+
+    @staticmethod
+    def _partition_events(events, from_id, elements):
+        if from_id is not None:
+            event = Event.query.get(from_id)
+            if event is not None:
+                events_temp = events.order_by(desc(Event.time)).filter(Event.time >= event.time)
+                row = 0
+                for event_temp in events_temp:
+                    row += 1
+                    if event_temp.id == event.id:
+                        break
+            else:
+                return []
+        else:
+            row = 0
+        events = events.order_by(desc(Event.time)).offset(row).limit(elements)
+        return events
