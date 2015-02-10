@@ -10,6 +10,7 @@ import datetime, time
 event1 = {
     "id": 1,
     "userId": "103788299879342667199",
+    "userImage": "https://lh3.googleusercontent.com/-c50o8X13gjA/AAAAAAAAAAI/AAAAAAAABXA/NUBFG7rleUM/photo.jpg",
     "title": "Don't eat alone in Computer Engineering's School",
     "description": "Hi! I am going to eat in EII and I do not want eat alone. "
                    "I am a amused person and I want eat with a person who likes talking about technology.",
@@ -25,6 +26,7 @@ event1 = {
 event2 = {
     "id": 2,
     "userId": "100363393538924443678",
+    "userImage": "https://lh5.googleusercontent.com/-3IDJxUtZjzc/AAAAAAAAAAI/AAAAAAAAONo/rzdGnq3dW-k/photo.jpg",
     "title": "Have a drink and speach about Barsa vs Madrid",
     "description": "Howdy guys, We want people to talk about the next match between Barsa and Madrid. "
                    "Do you want to join us?",

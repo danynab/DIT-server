@@ -13,10 +13,12 @@ class Event(db.Model):
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
     user_id = db.Column(db.String)
+    user_image = db.Column(db.String)
     category_id = db.Column(db.Integer)
     place_id = db.Column(db.Integer)
 
-    def __init__(self, title, description, image, address, time, lat, lng, user_id, category_id, place_id=None):
+    def __init__(self, title, description, image, address, time, lat, lng, user_id, user_image, category_id,
+                 place_id=None):
         self.title = title
         self.description = description
         self.image = image
@@ -25,6 +27,7 @@ class Event(db.Model):
         self.lat = lat
         self.lng = lng
         self.user_id = user_id
+        self.user_image = user_image
         self.category_id = category_id
         self.place_id = place_id
 
@@ -38,6 +41,7 @@ class Event(db.Model):
                  'lat': self.lat,
                  'lng': self.lng,
                  'userId': self.user_id,
+                 'userImage': self.user_image,
                  'categoryId': self.category_id,
                  'placeId': self.place_id}
         return {k: v for k, v in _dict.items() if v}
@@ -52,6 +56,7 @@ class Event(db.Model):
         lat = _dict["lat"]
         lng = _dict["lng"]
         user_id = _dict["userId"]
+        user_image = _dict["userImage"]
         category_id = _dict["categoryId"]
         place_id = _dict["placeId"]
-        return Event(title, description, image, address, time, lat, lng, user_id, category_id, place_id)
+        return Event(title, description, image, address, time, lat, lng, user_id, user_image, category_id, place_id)
