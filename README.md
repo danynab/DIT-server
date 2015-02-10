@@ -16,6 +16,11 @@ DELETE | /events/**X** | Elimina el evento con id **X**.
 GET | /categories | Listado con todos las categorías de eventos.
 GET | /categories/**X**/events?lat=\_&lng=\_&radius=\_ | Listado con todos los eventos cercanos de la categoría con id **X** en funcion de una latitud, logitud y radio de proximidad.
 
+Todas las peticiones que devuelvan varios eventos se pueden particionar indicando el id del último evento devuelto en la consulta anterior y el número de elementos a devolver. 
+Ejemplo: 
+```
+/events?fromId=5&elements=10
+```
 
 ##  INSTALACIÓN
 
