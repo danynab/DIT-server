@@ -24,7 +24,7 @@ event1 = {
 
 event2 = {
     "id": 2,
-    "userId": "103788299879342667199",
+    "userId": "100363393538924443678",
     "title": "Have a drink and speach about Barsa vs Madrid",
     "description": "Howdy guys, We want people to talk about the next match between Barsa and Madrid. "
                    "Do you want to join us?",
