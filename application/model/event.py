@@ -35,13 +35,13 @@ class Event(db.Model):
         _dict = {'id': self.id,
                  'title': self.title,
                  'description': self.description,
-                 'image': self.image,
+                 'headerImage': self.image,
                  'address': self.address,
                  'time': self.time,
                  'lat': self.lat,
                  'lng': self.lng,
                  'userId': self.user_id,
-                 'userImage': self.user_image,
+                 'profileImage': self.user_image,
                  'categoryId': self.category_id,
                  'placeId': self.place_id}
         return {k: v for k, v in _dict.items() if v}
@@ -50,13 +50,13 @@ class Event(db.Model):
     def from_dict(_dict):
         title = _dict["title"]
         description = _dict["description"]
-        image = _dict["image"]
+        image = _dict["headerImage"]
         address = _dict["address"]
         time = _dict["time"]
         lat = _dict["lat"]
         lng = _dict["lng"]
         user_id = _dict["userId"]
-        user_image = _dict["userImage"]
+        user_image = _dict["profileImage"]
         category_id = _dict["categoryId"]
         place_id = _dict["placeId"]
         return Event(title, description, image, address, time, lat, lng, user_id, user_image, category_id, place_id)
