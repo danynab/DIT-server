@@ -1,9 +1,9 @@
-__author__ = 'Dani'
-
-from application.model import Event
+from application.model.event import Event
 from application import db
 from sqlalchemy import desc
 from haversine import haversine
+
+__author__ = 'Dani'
 
 
 class EventService:
@@ -32,7 +32,7 @@ class EventService:
         return Event.query.get(event_id)
 
     @staticmethod
-    def save_event(event):
+    def save(event):
         db.session.add(event)
         db.session.commit()
 

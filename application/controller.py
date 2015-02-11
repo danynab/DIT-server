@@ -1,61 +1,41 @@
+from application.model.category import Category
+from application.model.event import Event
+from application.services.category_service import CategoryService
+from application.services.event_service import EventService
+
 __author__ = 'Dani Meana'
 
 import flask
 from application import app
-from application.services import EventService, CategoryService
-from application.model import Event
-import datetime, time
 
-
-event1 = {
-    "id": 1,
-    "userId": "103788299879342667199",
-    "userImage": "https://lh3.googleusercontent.com/-c50o8X13gjA/AAAAAAAAAAI/AAAAAAAABXA/NUBFG7rleUM/photo.jpg",
-    "title": "Don't eat alone in Computer Engineering's School",
-    "description": "Hi! I am going to eat in EII and I do not want eat alone. "
-                   "I am a amused person and I want eat with a person who likes talking about technology.",
-    "categoryId": 1,
-    "image": "http://156.35.95.67/dit/static/img/default-header.jpg",
-    "time": time.mktime(datetime.datetime.now().timetuple()) * 1000,
-    "lat": 43.355034,
-    "lng": -5.851503,
-    "address": "Calle Valdes Salas, 7, 33007 Oviedo, Asturias",
-    "placeId": None
-}
-
-event2 = {
-    "id": 2,
-    "userId": "100363393538924443678",
-    "userImage": "https://lh5.googleusercontent.com/-3IDJxUtZjzc/AAAAAAAAAAI/AAAAAAAAONo/rzdGnq3dW-k/photo.jpg",
-    "title": "Have a drink and speach about Barsa vs Madrid",
-    "description": "Howdy guys, We want people to talk about the next match between Barsa and Madrid. "
-                   "Do you want to join us?",
-    "categoryId": 2,
-    "image": "http://156.35.95.67/dit/static/img/default-header.jpg",
-    "time": time.mktime(datetime.datetime.now().timetuple()) * 1000,
-    "lat": 43.36333,
-    "lng": -5.845133,
-    "address": "Calle Jovellanos, 4 33003 Oviedo, Asturias, Espana",
-    "placeId": None
-}
 
 @app.route("/createTables")
 def create():
     from application import db
+    import application.data as data
+
     db.drop_all()
     db.create_all()
-    event1_obj = Event.from_dict(event1)
-    event2_obj = Event.from_dict(event2)
-    event3_obj = Event.from_dict(event1)
-    event4_obj = Event.from_dict(event2)
-    event5_obj = Event.from_dict(event1)
-    event6_obj = Event.from_dict(event2)
-    EventService.save_event(event1_obj)
-    EventService.save_event(event2_obj)
-    EventService.save_event(event3_obj)
-    EventService.save_event(event4_obj)
-    EventService.save_event(event5_obj)
-    EventService.save_event(event6_obj)
+
+    for category in data.categories:
+        CategoryService.save(
+            Category(id_category=category["id"], color=category["color"], image=category["image"]))
+
+    for i in range(0, 10):
+        for event in data.events:
+            EventService.save(Event(
+                title=event["title"],
+                description=event["description"],
+                address=event["address"],
+                time=event["time"],
+                lat=event["lat"],
+                lng=event["lng"],
+                user_id=event["userId"],
+                profile_image=event["profileImage"],
+                category_id=event["categoryId"],
+                place_id=event["placeId"]
+            ))
+
     return "<h1> Tablas creadas</h1>"
 
 
