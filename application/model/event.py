@@ -15,10 +15,8 @@ class Event(db.Model):
     user_id = db.Column(db.String)
     profile_image = db.Column(db.String)
     category_id = db.Column(db.Integer)
-    place_id = db.Column(db.Integer)
 
-    def __init__(self, title, description, address, time, lat, lng, user_id, profile_image, category_id,
-                 place_id=None):
+    def __init__(self, title, description, address, time, lat, lng, user_id, profile_image, category_id):
         self.title = title
         self.description = description
         self.address = address
@@ -28,7 +26,6 @@ class Event(db.Model):
         self.user_id = user_id
         self.profile_image = profile_image
         self.category_id = category_id
-        self.place_id = place_id
 
     def to_dict(self):
         category = CategoryService.get(self.category_id)
@@ -42,6 +39,29 @@ class Event(db.Model):
                  'lng': self.lng,
                  'userId': self.user_id,
                  'profileImage': self.profile_image,
-                 'categoryId': self.category_id,
-                 'placeId': self.place_id}
+                 'categoryId': self.category_id
+        }
         return {k: v for k, v in _dict.items() if v}
+
+
+def from_dict(_dict):
+    title = _dict['title']
+    description = _dict['description']
+    address = _dict['address']
+    time = _dict['time']
+    lat = _dict['lat']
+    lng = _dict['lng']
+    user_id = _dict['userId']
+    profile_image = _dict['profileImage']
+    category_id = _dict['categoryId']
+    return Event(
+        title=title,
+        description=description,
+        address=address,
+        time=time,
+        lat=lat,
+        lng=lng,
+        user_id=user_id,
+        profile_image=profile_image,
+        category_id=category_id
+    )

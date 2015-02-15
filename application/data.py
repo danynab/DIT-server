@@ -50,8 +50,7 @@ events = [
         "time": time.mktime(datetime.datetime.now().timetuple()) * 1000,
         "lat": 43.355034,
         "lng": -5.851503,
-        "address": "Calle Valdes Salas, 7, 33007 Oviedo, Asturias",
-        "placeId": None
+        "address": "Calle Valdes Salas, 7, 33007 Oviedo, Asturias"
     },
     {
         "id": 2,
@@ -65,7 +64,6 @@ events = [
         "time": time.mktime(datetime.datetime.now().timetuple()) * 1000,
         "lat": 43.36333,
         "lng": -5.845133,
-        "address": "Calle Jovellanos, 4 33003 Oviedo, Asturias, Espana",
-        "placeId": None
+        "address": "Calle Jovellanos, 4 33003 Oviedo, Asturias, Espana"
     }
 ]
