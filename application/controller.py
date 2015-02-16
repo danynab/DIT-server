@@ -2,6 +2,7 @@ from application.model import event
 from application.model.category import Category
 from application.services.category_service import CategoryService
 from application.services.event_service import EventService
+from application.services.place_service import PlaceService
 
 __author__ = 'Dani Meana'
 
@@ -24,17 +25,6 @@ def create():
     for i in range(0, 10):
         for event_dict in data.events:
             EventService.save(event.from_dict(event_dict))
-            # EventService.save(event.Event(
-            # title=event_dict["title"],
-            #     description=event_dict["description"],
-            #     address=event_dict["address"],
-            #     time=event_dict["time"],
-            #     lat=event_dict["lat"],
-            #     lng=event_dict["lng"],
-            #     user_id=event_dict["userId"],
-            #     profile_image=event_dict["profileImage"],
-            #     category_id=event_dict["categoryId"]
-            # ))
 
     return "<h1> Tablas creadas</h1>"
 
@@ -62,6 +52,11 @@ def save_event():
     return _response_ok()
 
 
+@app.route("/events/<int:event_id>")
+def find_event(event_id):
+    return _element_to_json(EventService.get(event_id))
+
+
 @app.route("/users/<string:user_id>/events", methods=["GET"])
 def find_events_by_user(user_id):
     from_id = _get_request_arg('fromId', None)
@@ -80,14 +75,18 @@ def find_near_events_by_category(category_id):
         EventService.find_near_events_by_category_id(category_id, lat, lng, radius, from_id, elements))
 
 
-@app.route("/events/<int:event_id>")
-def find_event(event_id):
-    return _element_to_json(EventService.get(event_id))
-
-
 @app.route("/categories")
 def find_categories():
     return _collection_to_json(CategoryService.get_all())
+
+
+@app.route("/categories/<int:category_id>/places", methods=["GET"])
+def find_near_places_by_category(category_id):
+    lat = _get_request_arg('lat', None)
+    lng = _get_request_arg('lng', None)
+    radius = _get_request_arg('radius', None)
+    elements = _get_request_arg('elements', None)
+    return _collection_to_json(PlaceService.find_near_places_by_category(category_id, lat, lng, radius, elements))
 
 
 def _get_request_arg(arg, default_value):

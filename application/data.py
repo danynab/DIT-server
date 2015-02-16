@@ -47,7 +47,7 @@ events = [
                        "I am a amused person and I want eat with a person who likes talking about technology.",
         "categoryId": 1,
         "headerImage": "http://156.35.95.67/dit/static/img/eating.png",
-        "time": time.mktime(datetime.datetime.now().timetuple()) * 1000,
+        "time": (time.mktime(datetime.datetime.now().timetuple()) + 3600) * 1000,
         "lat": 43.355034,
         "lng": -5.851503,
         "address": "Calle Valdes Salas, 7, 33007 Oviedo, Asturias"
@@ -61,7 +61,7 @@ events = [
                        "Do you want to join us?",
         "categoryId": 2,
         "headerImage": "http://156.35.95.67/dit/static/img/hangout.jpg",
-        "time": time.mktime(datetime.datetime.now().timetuple()) * 1000,
+        "time": (time.mktime(datetime.datetime.now().timetuple()) + 8000) * 1000,
         "lat": 43.36333,
         "lng": -5.845133,
         "address": "Calle Jovellanos, 4 33003 Oviedo, Asturias, Espana"
