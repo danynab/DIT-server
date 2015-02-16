@@ -11,5 +11,5 @@ class PlaceService:
             lat=lat,
             lng=lng,
             radius=radius,
-            elements=elements)
+            elements=int(elements) if elements is not None else None)
         return places

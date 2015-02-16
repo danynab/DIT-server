@@ -1,5 +1,5 @@
 from application.model.place import Place
-
+from itertools import islice
 __author__ = 'Dani'
 
 from application.wsservices import client
@@ -12,9 +12,9 @@ class PlaceWSService:
             category_id=category_id,
             lat=lat,
             lng=lng,
-            radius=radius,
-            elements=elements)[0]
-        places_from_ws = sorted(places_from_ws, key=lambda place: place.rating)
+            radius=radius)[0]
+        print(elements)
+        places_from_ws = list(islice(sorted(places_from_ws, key=lambda place: place.rating), elements))
         return [Place(
             id_place=place.id,
             name=place.name,
