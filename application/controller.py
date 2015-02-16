@@ -1,5 +1,6 @@
-from application.model import event
+from application.model import event, attendee
 from application.model.category import Category
+from application.services.attendee_service import AttendeeService
 from application.services.category_service import CategoryService
 from application.services.event_service import EventService
 from application.services.place_service import PlaceService
@@ -52,9 +53,45 @@ def save_event():
     return _response_ok()
 
 
-@app.route("/events/<int:event_id>")
+@app.route("/events/<int:event_id>", methods=["GET"])
 def find_event(event_id):
     return _element_to_json(EventService.get(event_id))
+
+
+@app.route("/events/<int:event_id>", methods=["DELETE"])
+def delete_event(event_id):
+    event_obj = EventService.get(event_id)
+    EventService.delete(event_obj)
+    return _response_ok()
+
+
+@app.route("/events/<int:event_id>", methods=["PUT"])
+def update_event(event_id):
+    event_json = flask.request.get_json()
+    event_obj = event.from_dict(event_json)
+    event_obj.id = event_id
+    EventService.update(event_obj)
+    return _response_ok()
+
+
+@app.route("/events/<int:event_id>/attendees", methods=["GET"])
+def find_attendees(event_id):
+    return _collection_to_json(AttendeeService.find_attendees_by_event_id(event_id))
+
+
+@app.route("/events/<int:event_id>/attendees", methods=["POST"])
+def add_attendee(event_id):
+    attendee_json = flask.request.get_json()
+    attendee_obj = attendee.from_dict(attendee_json)
+    # Check ids coinciden
+    AttendeeService.save(attendee_obj)
+    return _response_ok()
+
+@app.route("/events/<int:event_id>/attendees/<string:user_id>", methods=["DELETE"])
+def delete_attendee(event_id, user_id):
+    attendee_obj = AttendeeService.get(event_id, user_id)
+    AttendeeService.delete(attendee_obj)
+    return _response_ok()
 
 
 @app.route("/users/<string:user_id>/events", methods=["GET"])

@@ -2,7 +2,7 @@ from application.model.category import Category
 from application.wsservices.category_wsservice import CategoryWSService
 from application import db
 
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 
 class CategoryService:

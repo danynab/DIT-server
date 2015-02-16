@@ -1,6 +1,6 @@
 from suds.client import Client
 
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 has_permissions = True
 

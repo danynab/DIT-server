@@ -1,6 +1,6 @@
 from application.model.category import Category
 
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 from application.wsservices import client
 

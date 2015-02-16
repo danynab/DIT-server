@@ -5,7 +5,7 @@ from application import db
 from sqlalchemy import asc
 from haversine import haversine
 
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 
 class EventService:
@@ -40,6 +40,26 @@ class EventService:
     @staticmethod
     def save(event):
         db.session.add(event)
+        db.session.commit()
+
+    @staticmethod
+    def delete(event):
+        db.session.delete(event)
+        db.session.commit()
+
+    @staticmethod
+    def update(event):
+        event_to_update = Event.query.filter(Event.id == event.id).first()
+        event_to_update.title = event.title
+        event_to_update.description = event.description
+        event_to_update.address = event.address
+        event_to_update.time = event.time
+        event_to_update.lat = event.lat
+        event_to_update.lng = event.lng
+        event_to_update.user_id = event.user_id
+        event_to_update.profile_image = event.profile_image
+        event_to_update.category_id = event.category_id
+        db.session.merge(event_to_update)
         db.session.commit()
 
 

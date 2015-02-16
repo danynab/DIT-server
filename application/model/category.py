@@ -1,6 +1,6 @@
-__author__ = 'Dani'
-
 from application import db
+
+__author__ = 'Dani Meana'
 
 
 class Category(db.Model):

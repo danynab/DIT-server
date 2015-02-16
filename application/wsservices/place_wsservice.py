@@ -1,6 +1,6 @@
 from application.model.place import Place
 from itertools import islice
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 from application.wsservices import client
 

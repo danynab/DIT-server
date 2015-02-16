@@ -1,4 +1,4 @@
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 from application import db
 

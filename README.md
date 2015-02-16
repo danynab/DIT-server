@@ -9,10 +9,13 @@ A continuación se muestra una pequeña descripción de los *endpoints* existent
 HTTP Method | Ruta | Descripción
 :----------:|------|-------------
 GET | /events?lat=\_&lng=\_&radius=\_ | Listado con todos los eventos cercanos en funcion de una latitud, logitud y radio de proximidad.
-GET | /events/**X** | Detalle del evento con id **X**
+GET | /events/**X** | Detalle del evento con id **X**.
 POST | /events | Crea un nuevo evento.
-PUT | /events/**X** | Actualiza los datos del evento con id **X**
+PUT | /events/**X** | Actualiza los datos del evento con id **X** con los datos recibidos en el cuerpo de la petición.
 DELETE | /events/**X** | Elimina el evento con id **X**.
+GET | /events/**X**/attendees | Listado con los asistentes al evento con id **X**.
+POST | /events/**X**/attendees | Añade un asistente cuyos datos están en el cuerpo de la petición al evento con id **X**.
+DELETE | /events/**X**/attendess/**Y** | Elimina un asistente cuyo usuario asociado tiene el id **Y** del evento con id **X**.
 GET | /categories | Listado con todos las categorías de eventos.
 GET | /categories/**X**/events?lat=\_&lng=\_&radius=\_ | Listado con todos los eventos cercanos de la categoría con id **X** en funcion de una latitud, logitud y radio de proximidad.
 GET | /categories/**X**/places?lat=\_&lng=\_&radius=\_&elements\_ | Listado con los lugares cercanos recomendados de la categoría con id **X** en función de una latitud, longitud y radio de proximidad. El atributo elements indica el número de resultados a devolver.

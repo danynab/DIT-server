@@ -1,4 +1,4 @@
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 
 class Place():

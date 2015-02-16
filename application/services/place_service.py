@@ -1,6 +1,6 @@
 from application.wsservices.place_wsservice import PlaceWSService
 
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 
 class PlaceService:

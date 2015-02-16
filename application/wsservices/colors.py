@@ -1,4 +1,4 @@
-__author__ = 'Dani'
+__author__ = 'Dani Meana'
 
 colors = ["#e91e64", "#2196f3", "#ff5722", "#4caf50", "#673ab7", "#ffeb3b"]
 
