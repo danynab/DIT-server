@@ -1,6 +1,8 @@
+import time
+import datetime
 from application.model.event import Event
 from application import db
-from sqlalchemy import desc
+from sqlalchemy import asc
 from haversine import haversine
 
 __author__ = 'Dani'
@@ -13,8 +15,11 @@ class EventService:
 
     @staticmethod
     def find_near_events_by_category_id(category_id, lat, lng, radius, from_id, elements):
-        events = Event.query if category_id is None else Event.query.filter(Event.category_id == category_id)
-        events = events.order_by(desc(Event.time))
+        time_millis = time.mktime(datetime.datetime.now().timetuple()) * 1000
+        events = Event.query.filter(Event.time > time_millis)
+        if category_id is not None:
+            events = events.filter(Event.category_id == category_id)
+        events = events.order_by(asc(Event.time))
         position = _get_row(events, from_id)
         if position is None:
             return []
@@ -23,7 +28,8 @@ class EventService:
 
     @staticmethod
     def find_events_by_user_id(user_id, from_id, elements):
-        events = Event.query.filter(Event.user_id == user_id).order_by(desc(Event.time))
+        time_millis = time.mktime(datetime.datetime.now().timetuple()) * 1000
+        events = Event.query.filter(Event.user_id == user_id).filter(Event.time > time_millis).order_by(asc(Event.time))
         position = _get_row(events, from_id)
         return _partition_events(events, position, elements) if position is not None else []
 
@@ -42,7 +48,7 @@ def _get_row(events, event_id):
         return 0
     event = Event.query.get(event_id)
     if event is not None:
-        events_temp = events.filter(Event.time >= event.time)
+        events_temp = events.filter(Event.time <= event.time)
         row = 0
         for event_temp in events_temp:
             row += 1

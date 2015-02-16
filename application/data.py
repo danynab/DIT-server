@@ -1,7 +1,7 @@
 __author__ = 'Dani'
 
-import flask
-import datetime, time
+import datetime
+import time
 
 
 categories = [
