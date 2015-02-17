@@ -42,7 +42,7 @@ def create():
         for event_dict in data.events:
             EventService.save(event.from_dict(event_dict))
 
-    return "<h1>Tablas creadas</h1>"
+    return _response_ok(code="dit_hello", message="Data initialized")
 
 
 @app.route("/", methods=["GET"])
@@ -148,6 +148,17 @@ def find_events_by_user(user_id):
         return _collection_to_json(EventService.find_events_by_user_id(user_id, from_id, elements))
     except ValueError:
         return _response_error(code="dit_fesu", message="The arguments are not correct")
+
+
+@app.route("/users/<string:user_id>/attendees/events", methods=["GET"])
+def find_user_attended_events(user_id):
+    from_id = _get_request_arg('fromId', None)
+    elements = _get_request_arg('elements', None)
+    attendees = AttendeeService.find_attendees_by_user_id(user_id)
+    try:
+        return _collection_to_json(EventService.find_events_by_attendees(attendees, from_id, elements))
+    except ValueError:
+        return _response_error(code="dit_fuae", message="The arguments are not correct")
 
 
 @app.route("/categories/<int:category_id>/events", methods=["GET"])

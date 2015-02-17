@@ -34,6 +34,15 @@ class EventService:
         return _partition_events(events, position, elements) if position is not None else []
 
     @staticmethod
+    def find_events_by_attendees(attendees, from_id, elements):
+        time_millis = time.mktime(datetime.datetime.now().timetuple()) * 1000
+        event_ids = [att.event_id for att in attendees]
+        events = Event.query.filter(Event.id.in_(event_ids))
+        events = events.filter(Event.time > time_millis).order_by(asc(Event.time))
+        position = _get_row(events, from_id)
+        return _partition_events(events, position, elements)
+
+    @staticmethod
     def get(event_id):
         return Event.query.get(event_id)
 

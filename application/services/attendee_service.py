@@ -10,6 +10,10 @@ class AttendeeService:
         return Attendee.query.filter(Attendee.event_id == event_id)
 
     @staticmethod
+    def find_attendees_by_user_id(user_id):
+        return Attendee.query.filter(Attendee.user_id == user_id)
+
+    @staticmethod
     def get(event_id, user_id):
         return Attendee.query.filter(Attendee.event_id == event_id).filter(Attendee.user_id == user_id).first()
 
