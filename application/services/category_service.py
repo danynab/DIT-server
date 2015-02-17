@@ -1,6 +1,7 @@
 from application.model.category import Category
 from application.wsservices.category_wsservice import CategoryWSService
 from application import db
+from suds import WebFault
 
 __author__ = 'Dani Meana'
 
@@ -20,7 +21,15 @@ class CategoryService:
 
     @staticmethod
     def get(category_id):
-        return Category.query.get(category_id)
+        try:
+            category = CategoryWSService.get(category_id)
+        except WebFault:
+            return None
+        category_in_bd = Category.query.get(category_id)
+        if category_in_bd is not None:
+            category.color = category_in_bd.color
+            category.image = category_in_bd.image
+        return category
 
     @staticmethod
     def save(category):

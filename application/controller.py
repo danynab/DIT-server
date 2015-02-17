@@ -15,7 +15,8 @@ from application import app
 
 @app.errorhandler(Exception)
 def all_exception_handler(error):
-    return _response_error(code="dit_err", message="Server critical error. Please, contact with administrators",
+    return _response_error(code="dit_err", message="Server critical error. Please, contact with administrators. "
+                                                   "Error: " + str(error),
                            status=500)
 
 
@@ -181,6 +182,14 @@ def find_categories():
         return _collection_to_json(CategoryService.get_all())
     except URLError:
         return _response_error(code="dit_fc", message="The server is not available", status=500)
+
+
+@app.route("/categories/<int:category_id>", methods=["GET"])
+def find_category(category_id):
+    category_obj = CategoryService.get(category_id)
+    if category_obj is None:
+        return _response_error(code="dit_fc", message="Category not found")
+    return _element_to_json(category_obj)
 
 
 @app.route("/categories/<int:category_id>/places", methods=["GET"])
