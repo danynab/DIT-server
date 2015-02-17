@@ -39,6 +39,7 @@ class EventService:
 
     @staticmethod
     def save(event):
+        check_event_types(event)
         db.session.add(event)
         db.session.commit()
 
@@ -61,6 +62,18 @@ class EventService:
         event_to_update.category_id = event.category_id
         db.session.merge(event_to_update)
         db.session.commit()
+
+
+def check_event_types(event):
+    str(event.title)
+    str(event.description)
+    str(event.address)
+    int(event.time)
+    float(event.lat)
+    float(event.lng)
+    str(event.user_id)
+    str(event.profile_image)
+    int(event.category_id)
 
 
 def _get_row(events, event_id):

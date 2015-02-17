@@ -15,11 +15,17 @@ class AttendeeService:
 
     @staticmethod
     def save(attendee):
+        check_event_types(attendee)
         db.session.add(attendee)
         db.session.commit()
 
     @staticmethod
     def delete(attendee):
-        print(attendee)
         db.session.delete(attendee)
         db.session.commit()
+
+
+def check_event_types(attendee):
+    str(attendee.user_id)
+    int(attendee.event_id)
+    str(attendee.profile_image)
