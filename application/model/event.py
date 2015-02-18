@@ -1,4 +1,5 @@
 from application.services.category_service import CategoryService
+from application.services.attendee_service import AttendeeService
 from application import db
 
 __author__ = 'Dani Meana'
@@ -26,9 +27,11 @@ class Event(db.Model):
         self.user_id = user_id
         self.profile_image = profile_image
         self.category_id = category_id
+        self.attendees = []
 
     def to_dict(self):
         category = CategoryService.get(self.category_id)
+        attendees = AttendeeService.find_attendees_by_event_id(self.id)
         _dict = {'id': self.id,
                  'title': self.title,
                  'description': self.description,
@@ -39,7 +42,8 @@ class Event(db.Model):
                  'lng': self.lng,
                  'userId': self.user_id,
                  'profileImage': self.profile_image,
-                 'categoryId': self.category_id
+                 'categoryId': self.category_id,
+                 'attendees': [attendee.to_dict() for attendee in attendees] if attendees is not None else None
         }
         return {k: v for k, v in _dict.items() if v}
 
