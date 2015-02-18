@@ -1,7 +1,6 @@
 import time
 import datetime
 from application.model.event import Event
-from application.services.attendee_service import AttendeeService
 from application import db
 from sqlalchemy import asc
 from haversine import haversine
