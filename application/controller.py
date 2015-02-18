@@ -32,22 +32,33 @@ def create():
     import application.data as data
 
     db.drop_all()
+    print('## DB dropped ##')
     db.create_all()
+    print('## DB created ##')
 
     fill = _get_request_arg('fill', None)
+    print('## Fill: ' + ('True' if fill else 'False') + ' ##')
     if fill is not None:
         for category in data.categories:
             CategoryService.save(
                 Category(id_category=category['id'],
                          color=category['color'],
                          image=category['image']))
+            print('## Category saved ##')
+            print(category)
 
         for i in range(0, 10):
             for event_dict in data.events:
                 EventService.save(event.from_dict(event_dict))
+                print('## Event saved ##')
+                print(event_dict)
 
         for attendee_dict in data.attendees:
             AttendeeService.save(attendee.from_dict(attendee_dict))
+            print('## Attendee saved ##')
+            print(attendee_dict)
+
+        print('## DB filled ##')
 
     return _response_ok(code="dit_hello", message="Data initialized")
 
