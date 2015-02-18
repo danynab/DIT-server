@@ -72,7 +72,7 @@ attendees = [
     {
         "eventId": 2,
         "profileImage": "https://lh3.googleusercontent.com/-c50o8X13gjA/AAAAAAAAAAI/AAAAAAAABXA/NUBFG7rleUM/photo.jpg",
-        "userId": "1003d63393538924443678"
+        "userId": "103788299879342667199"
     },
     {
         "eventId": 2,
