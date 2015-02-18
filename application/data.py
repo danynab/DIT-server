@@ -67,3 +67,38 @@ events = [
         "address": "Calle Jovellanos, 4 33003 Oviedo, Asturias, Espana"
     }
 ]
+
+attendees = [
+    {
+        "eventId": 2,
+        "profileImage": "https://lh3.googleusercontent.com/-c50o8X13gjA/AAAAAAAAAAI/AAAAAAAABXA/NUBFG7rleUM/photo.jpg",
+        "userId": "1003d63393538924443678"
+    },
+    {
+        "eventId": 2,
+        "profileImage": "https://loveplush.files.wordpress.com/2013/08/chiquita-dm2-minion-jerry-tongue.jpg",
+        "userId": "miniom"
+    },
+    {
+        "eventId": 2,
+        "profileImage":
+            "https://31.media.tumblr.com/cdc8fc50dad9e9998237c4e799a6023b/tumblr_inline_n0x7paM9Gq1s8tks2.jpg",
+        "userId": "gru"
+    },
+    {
+        "eventId": 2,
+        "profileImage":
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFPWdPxUikbm7ScFw3l4PSXdJ95hsdhIOdli7OkXR78MmS52BVGA",
+        "userId": "nefario"
+    },
+    {
+        "eventId": 2,
+        "profileImage": "http://www.mods.org/IMAX/films/Avatar/Avatar%20Special%20Edition%204.18.14/avatr_stl_011_h.jpg",
+        "userId": "avatar"
+    },
+    {
+        "eventId": 2,
+        "profileImage": "http://www.ew.com/sites/default/files/i/2014/08/27/Saw.jpg",
+        "userId": "saw"
+    }
+]

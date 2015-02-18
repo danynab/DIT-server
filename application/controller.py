@@ -1,5 +1,6 @@
 from urllib.error import URLError
 from application.model import event, attendee
+from application.model.attendee import Attendee
 from application.model.category import Category
 from application.services.attendee_service import AttendeeService
 from application.services.category_service import CategoryService
@@ -33,15 +34,20 @@ def create():
     db.drop_all()
     db.create_all()
 
-    for category in data.categories:
-        CategoryService.save(
-            Category(id_category=category['id'],
-                     color=category['color'],
-                     image=category['image']))
+    fill = _get_request_arg('fill', None)
+    if fill is not None:
+        for category in data.categories:
+            CategoryService.save(
+                Category(id_category=category['id'],
+                         color=category['color'],
+                         image=category['image']))
 
-    for i in range(0, 10):
-        for event_dict in data.events:
-            EventService.save(event.from_dict(event_dict))
+        for i in range(0, 10):
+            for event_dict in data.events:
+                EventService.save(event.from_dict(event_dict))
+
+        for attendee_dict in data.attendees:
+            AttendeeService.save(attendee.from_dict(attendee_dict))
 
     return _response_ok(code="dit_hello", message="Data initialized")
 
