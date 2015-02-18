@@ -14,7 +14,7 @@ class PlaceWSService:
             lng=lng,
             radius=radius)[0]
         print(elements)
-        places_from_ws = list(islice(sorted(places_from_ws, key=lambda place: place.rating), elements))
+        places_from_ws = list(islice(sorted(places_from_ws, key=lambda place: place.rating, reverse=True), elements))
         return [Place(
             id_place=place.id,
             name=place.name,

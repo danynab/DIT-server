@@ -13,13 +13,14 @@ class Place():
         self.rating = rating
 
     def to_dict(self):
-        _dict = {'id': self.id,
-                 'name': self.name,
-                 'lat': self.lat,
-                 'lng': self.lng,
-                 'address': self.address,
-                 'image': self.image,
-                 'categoryId': self.category_id,
-                 'rating': self.rating
+        _dict = {
+            'id': self.id,
+            'name': self.name,
+            'lat': self.lat,
+            'lng': self.lng,
+            'address': self.address,
+            'image': self.image,
+            'categoryId': self.category_id,
+            'rating': self.rating if self.rating is not None else 0
         }
-        return {k: v for k, v in _dict.items() if v}
+        return {k: v for k, v in _dict.items() if v is not None}
