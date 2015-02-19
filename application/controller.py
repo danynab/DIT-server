@@ -15,7 +15,7 @@ from application import app
 
 @app.after_request
 def print_ip(response):
-    ip = flask.request.remote_addr
+    ip = flask.request.headers.environ['HTTP_X_FORWARDED_FOR']
     user_agent = flask.request.headers.environ['HTTP_USER_AGENT']
     print()
     print(('IP: ' + ip if ip else 'None') + ((' - UserAgent: ' + user_agent) if user_agent else ''))
