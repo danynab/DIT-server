@@ -1,6 +1,5 @@
 from urllib.error import URLError
 from application.model import event, attendee
-from application.model.attendee import Attendee
 from application.model.category import Category
 from application.services.attendee_service import AttendeeService
 from application.services.category_service import CategoryService
@@ -12,6 +11,15 @@ __author__ = 'Dani Meana'
 
 import flask
 from application import app
+
+
+@app.after_request
+def print_ip(response):
+    ip = flask.request.remote_addr
+    user_agent = flask.request.headers.environ['HTTP_USER_AGENT']
+    print()
+    print(('IP: ' + ip if ip else 'None') + ((' - UserAgent: ' + user_agent) if user_agent else ''))
+    return response
 
 
 @app.errorhandler(Exception)
@@ -44,20 +52,13 @@ def create():
                 Category(id_category=category['id'],
                          color=category['color'],
                          image=category['image']))
-            print('## Category saved ##')
-            print(category)
 
         for i in range(0, 10):
             for event_dict in data.events:
                 EventService.save(event.from_dict(event_dict))
-                print('## Event saved ##')
-                print(event_dict)
 
         for attendee_dict in data.attendees:
             AttendeeService.save(attendee.from_dict(attendee_dict))
-            print('## Attendee saved ##')
-            print(attendee_dict)
-
         print('## DB filled ##')
 
     return _response_ok(code="dit_hello", message="Data initialized")
