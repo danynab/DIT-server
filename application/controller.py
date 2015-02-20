@@ -24,6 +24,7 @@ def print_ip(response):
 
 @app.errorhandler(Exception)
 def all_exception_handler(error):
+    print('ERROR: ' + str(error))
     return _response_error(code="dit_err", message="Server critical error. Please, contact with administrators. "
                                                    "Error: " + str(error),
                            status=500)
@@ -44,9 +45,9 @@ def create():
     db.create_all()
     print('## DB created ##')
 
-    fill = _get_request_arg('fill', None)
+    fill = _get_request_arg('fill', True)
     print('## Fill: ' + ('True' if fill else 'False') + ' ##')
-    if fill is not None:
+    if fill is True:
         for category in data.categories:
             CategoryService.save(
                 Category(id_category=category['id'],
