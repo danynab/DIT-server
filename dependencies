@@ -2,3 +2,4 @@ Flask
 Flask-SQLAlchemy
 suds-jurko
 haversine
+flask-cors
