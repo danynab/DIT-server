@@ -7,8 +7,7 @@ __author__ = 'Dani Meana'
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/dit.db'
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app, resources=r'*', allow_headers='Content-Type')
 db = SQLAlchemy(app)
 
 import application.controller
