@@ -19,7 +19,7 @@ DELETE | /events/**X**/attendess/**Y** | Elimina un asistente cuyo usuario asoci
 GET | /categories | Listado con todos las categorías de eventos.
 GET | /categories/**X** | Detalle de la categoría con id **X**.
 GET | /categories/**X**/events?lat=\_&lng=\_&radius=\_ | Listado con todos los eventos cercanos de la categoría con id **X** en funcion de una latitud, logitud y radio de proximidad.
-GET | /categories/**X**/places?lat=\_&lng=\_&radius=\_&elements\_ | Listado con los lugares cercanos recomendados de la categoría con id **X** en función de una latitud, longitud y radio de proximidad. El atributo elements indica el número de resultados a devolver.
+GET | /categories/**X**/places?lat=\_&lng=\_&radius=\_&elements=\_ | Listado con los lugares cercanos recomendados de la categoría con id **X** en función de una latitud, longitud y radio de proximidad. El atributo elements indica el número de resultados a devolver.
 GET | /users/**X**/events | Listado con todos los eventos creados por el usuario con id **X**.
 GET | /users/**X**/attendees/events | Listado con todos los eventos a los que el usuario con id **X** va a asistir.
 
