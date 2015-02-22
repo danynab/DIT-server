@@ -1,9 +1,5 @@
 __author__ = 'Dani Meana'
 
-import datetime
-import time
-
-
 categories = [
     {
         "id": 1,
@@ -34,71 +30,5 @@ categories = [
         "id": 6,
         "image": "http://156.35.95.67/dit/static/img/shopping.png",
         "color": "#ffeb3b"
-    }
-]
-
-events = [
-    {
-        "id": 1,
-        "userId": "103788299879342667199",
-        "profileImage": "https://lh3.googleusercontent.com/-c50o8X13gjA/AAAAAAAAAAI/AAAAAAAABXA/NUBFG7rleUM/photo.jpg",
-        "title": "Don't eat alone in Computer Engineering's School",
-        "description": "Hi! I am going to eat in EII and I do not want eat alone. "
-                       "I am a amused person and I want eat with a person who likes talking about technology.",
-        "categoryId": 1,
-        "headerImage": "http://156.35.95.67/dit/static/img/eating.png",
-        "time": (time.mktime(datetime.datetime.now().timetuple()) + 36000000) * 1000,
-        "lat": 43.355034,
-        "lng": -5.851503,
-        "address": "Calle Valdes Salas, 7, 33007 Oviedo, Asturias"
-    },
-    {
-        "id": 2,
-        "userId": "100363393538924443678",
-        "profileImage": "https://lh5.googleusercontent.com/-3IDJxUtZjzc/AAAAAAAAAAI/AAAAAAAAONo/rzdGnq3dW-k/photo.jpg",
-        "title": "Have a drink and speach about Barsa vs Madrid",
-        "description": "Howdy guys, We want people to talk about the next match between Barsa and Madrid. "
-                       "Do you want to join us?",
-        "categoryId": 2,
-        "headerImage": "http://156.35.95.67/dit/static/img/hangout.jpg",
-        "time": (time.mktime(datetime.datetime.now().timetuple()) + 80000000) * 1000,
-        "lat": 43.36333,
-        "lng": -5.845133,
-        "address": "Calle Jovellanos, 4 33003 Oviedo, Asturias, Espana"
-    }
-]
-
-attendees = [
-    {
-        "eventId": 2,
-        "profileImage": "https://lh3.googleusercontent.com/-c50o8X13gjA/AAAAAAAAAAI/AAAAAAAABXA/NUBFG7rleUM/photo.jpg",
-        "userId": "103788299879342667199"
-    },
-    {
-        "eventId": 2,
-        "profileImage": "https://loveplush.files.wordpress.com/2013/08/chiquita-dm2-minion-jerry-tongue.jpg",
-        "userId": "miniom"
-    },
-    {
-        "eventId": 2,
-        "profileImage":
-            "https://31.media.tumblr.com/cdc8fc50dad9e9998237c4e799a6023b/tumblr_inline_n0x7paM9Gq1s8tks2.jpg",
-        "userId": "gru"
-    },
-    {
-        "eventId": 2,
-        "profileImage":
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFPWdPxUikbm7ScFw3l4PSXdJ95hsdhIOdli7OkXR78MmS52BVGA",
-        "userId": "nefario"
-    },
-    {
-        "eventId": 2,
-        "profileImage": "http://www.mods.org/IMAX/films/Avatar/Avatar%20Special%20Edition%204.18.14/avatr_stl_011_h.jpg",
-        "userId": "avatar"
-    },
-    {
-        "eventId": 2,
-        "profileImage": "http://www.ew.com/sites/default/files/i/2014/08/27/Saw.jpg",
-        "userId": "saw"
     }
 ]

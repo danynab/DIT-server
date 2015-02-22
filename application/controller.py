@@ -37,35 +37,25 @@ def all_exception_handler(error):
 def resource_not_found(error):
     return _response_error(code="dit_404", message="Resource not found", status=404)
 
-
-@app.route("/createTables")
-def create():
+@app.route("/init")
+def init():
     from application import db
+    db.drop_all()
+    db.create_all()
+    return _response_ok(code="dit_init", message="Tables created")
+
+
+@app.route("/fillCategories")
+def fill_categories():
     import application.data as data
 
-    db.drop_all()
-    print('## DB dropped ##')
-    db.create_all()
-    print('## DB created ##')
+    for category in data.categories:
+        CategoryService.save(
+            Category(id_category=category['id'],
+                     color=category['color'],
+                     image=category['image']))
 
-    fill = _get_request_arg('fill', True)
-    print('## Fill: ' + ('True' if fill else 'False') + ' ##')
-    if fill is True:
-        for category in data.categories:
-            CategoryService.save(
-                Category(id_category=category['id'],
-                         color=category['color'],
-                         image=category['image']))
-
-        for i in range(0, 10):
-            for event_dict in data.events:
-                EventService.save(event.from_dict(event_dict))
-
-        for attendee_dict in data.attendees:
-            AttendeeService.save(attendee.from_dict(attendee_dict))
-        print('## DB filled ##')
-
-    return _response_ok(code="dit_hello", message="Data initialized")
+    return _response_ok(code="dit_fill_categories", message="Categories initialized")
 
 
 @app.route("/", methods=["GET"])
