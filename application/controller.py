@@ -49,7 +49,7 @@ def create():
     print('## DB created ##')
 
     fill = _get_request_arg('fill', True)
-    print('## Fill: ' + ('True' if fill else 'False') + ' ##')
+    print('## Fill: ' + ('True' if fill is True else 'False') + ' ##')
     if fill is True:
         for category in data.categories:
             CategoryService.save(
